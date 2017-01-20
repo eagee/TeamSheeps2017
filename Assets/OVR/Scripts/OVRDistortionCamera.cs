@@ -65,37 +65,37 @@ public class OVRDistortionCamera : OVRComponent
 	{
 		base.Awake ();
 				
-		// Material used for drawing color only polys into a render texture
-		// Used by Latency tester
-		if(ColorOnlyMaterial == null)
-		{
-			ColorOnlyMaterial = new Material (
-
-			    "Shader \"Solid Color\" {\n" +
-    			"Properties {\n" +
-                "_Color (\"Color\", Color) = (1,1,1)\n" +
-                "}\n" +
-    			"SubShader {\n" +
-    			"Color [_Color]\n" +
-    			"Pass {}\n" +
-    			"}\n" +
-    			"}"		
-			);
-		}
-
-		if(UndistortedMaterial == null)
-		{
-			UndistortedMaterial = new Material(
-				"Shader \"Hidden/Invert\" {" +
-				"SubShader {" +
-				"    Pass {" +
-				"        ZTest Always Cull Off ZWrite Off" +
-				"        SetTexture [_MainTex] { combine texture }" +
-				"    }" +
-				"}" +
-				"}"
-				);
-		}
+		//// Material used for drawing color only polys into a render texture
+		//// Used by Latency tester
+		//if(ColorOnlyMaterial == null)
+		//{
+		//	ColorOnlyMaterial = new Material (
+        //
+		//	    "Shader \"Solid Color\" {\n" +
+    	//		"Properties {\n" +
+        //        "_Color (\"Color\", Color) = (1,1,1)\n" +
+        //        "}\n" +
+    	//		"SubShader {\n" +
+    	//		"Color [_Color]\n" +
+    	//		"Pass {}\n" +
+    	//		"}\n" +
+    	//		"}"		
+		//	);
+		//}
+        //
+		//if(UndistortedMaterial == null)
+		//{
+		//	UndistortedMaterial = new Material(
+		//		"Shader \"Hidden/Invert\" {" +
+		//		"SubShader {" +
+		//		"    Pass {" +
+		//		"        ZTest Always Cull Off ZWrite Off" +
+		//		"        SetTexture [_MainTex] { combine texture }" +
+		//		"    }" +
+		//		"}" +
+		//		"}"
+		//		);
+		//}
 
 		GetComponent<Camera>().orthographic = true;
 	}
