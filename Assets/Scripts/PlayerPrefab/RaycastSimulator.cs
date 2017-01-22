@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 /// <summary>
 ///  Uses a collider and a trigger to simulate a forward raycast since we have so much
@@ -17,6 +18,7 @@ public class RaycastSimulator : MonoBehaviour {
         {
             // TODO: The the type of face from the other object and modify our musical state accordingly...
             other.gameObject.SendMessage("OnRaycastHitBot", parentGameObject.transform.position, SendMessageOptions.DontRequireReceiver);
+            other.gameObject.GetComponent<NavMeshAgent>().SetDestination(parentGameObject.transform.position);
         }
     }
 
