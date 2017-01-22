@@ -7,10 +7,11 @@ using UnityEngine.AI;
 public class BotBehavior : NetworkBehaviour {
 
     NavMeshAgent agent;
-    public Transform target;
-
+    
     bool isMoving;
     private List<NetworkPlayerScript> players;
+
+    private float nearTargetTime = 0.0f;
 
     // Use this for initialization
     void Awake()
@@ -35,14 +36,33 @@ public class BotBehavior : NetworkBehaviour {
         }
     }
 
+    private void RotateTwoardTarget()
+    {
+        Vector3 direction = (agent.destination - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 1f);
+    }
+
     [Server]
     void PathFindToOtherPlayers()
     {
         if (!isMoving)
             return;
 
-        if (agent.stoppingDistance >= agent.remainingDistance)
-            Invoke("StartMoving", 10f);
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            nearTargetTime += Time.deltaTime;
+            if(nearTargetTime > 5.0f)
+            {
+                nearTargetTime = 0.0f;
+                StartMoving();
+            }
+            else
+            {
+                RotateTwoardTarget();
+            }
+        }
+            
     }
 
     [Server]
@@ -70,7 +90,7 @@ public class BotBehavior : NetworkBehaviour {
         {
             newTarget = players[(int)Random.Range(0, count-1)].gameObject.transform;
         }
-
+        
         agent.SetDestination(newTarget.position);
         isMoving = true;
     }

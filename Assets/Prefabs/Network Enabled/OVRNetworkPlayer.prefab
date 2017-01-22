@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 114618364530373946}
   - component: {fileID: 20692439291035610}
   - component: {fileID: 114261060103112658}
+  - component: {fileID: 65695307922738764}
+  - component: {fileID: 114457401636236678}
   m_Layer: 8
   m_Name: OVRCameraController
   m_TagString: Untagged
@@ -180,10 +182,10 @@ GameObject:
   - component: {fileID: 114524602347251628}
   - component: {fileID: 114434553269736052}
   - component: {fileID: 135763442300400282}
-  - component: {fileID: 54509768824714880}
+  - component: {fileID: 54570490914738634}
   m_Layer: 0
   m_Name: OVRNetworkPlayer
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -325,7 +327,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1462739882452256}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.178, y: 0.86, z: 0}
+  m_LocalPosition: {x: 0.178, y: 1.114, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4878961432593940}
@@ -807,7 +809,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1770962765764088}
   m_Mesh: {fileID: 4300000, guid: 5dbcb62244c2e344a8da0343116a45ac, type: 3}
---- !u!54 &54509768824714880
+--- !u!54 &54570490914738634
 Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -817,11 +819,23 @@ Rigidbody:
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &65695307922738764
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462739882452256}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: -0.4, y: 0.37, z: 4}
+  m_Center: {x: 0, y: 0, z: 2.03}
 --- !u!81 &81011105078353524
 AudioListener:
   m_ObjectHideFlags: 1
@@ -1408,6 +1422,18 @@ MonoBehaviour:
   BoredomTrack: {fileID: 82260893463653252}
   State: 
   smoothTrans: 1
+--- !u!114 &114457401636236678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1462739882452256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 917685d80b271984f90981cacae78648, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentGameObject: {fileID: 1544142686278588}
 --- !u!114 &114500303084040548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1430,8 +1456,8 @@ MonoBehaviour:
   m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TransformSyncMode: 4
-  m_SendInterval: 0.1
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.2
   m_SyncRotationAxis: 2
   m_RotationSyncCompression: 0
   m_SyncSpin: 0
@@ -1572,7 +1598,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3.77
+  m_Radius: 1.49
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!143 &143691535194895846
 CharacterController:
@@ -1603,7 +1629,7 @@ NavMeshAgent:
   m_Acceleration: 10
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 3
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
