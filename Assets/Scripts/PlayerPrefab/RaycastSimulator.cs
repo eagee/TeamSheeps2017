@@ -21,13 +21,13 @@ public class RaycastSimulator : MonoBehaviour {
             other.gameObject.GetComponent<NavMeshAgent>().SetDestination(parentGameObject.transform.position);
             int faceType = other.gameObject.GetComponent<NetworkPlayerScript>().faceMaterialIndex;
             if (faceType == 0)
-                parentGameObject.GetComponent<MusicManager>().State = "winning";
-            else if (faceType == 1)
-                parentGameObject.GetComponent<MusicManager>().State = "angry";
-            else if (faceType == 2)
-                parentGameObject.GetComponent<MusicManager>().State = "boredom";
-            else if (faceType == 3)
-                parentGameObject.GetComponent<MusicManager>().State = "sad";
+                parentGameObject.GetComponent<MusicManager>().ChangeState("winning");
+            else if (faceType == 1)                          
+                parentGameObject.GetComponent<MusicManager>().ChangeState("angry");
+            else if (faceType == 2)                          
+                parentGameObject.GetComponent<MusicManager>().ChangeState("boredom");
+            else if (faceType == 3)                          
+                parentGameObject.GetComponent<MusicManager>().ChangeState("sad");
         }
     }
 
