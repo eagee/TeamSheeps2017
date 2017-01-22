@@ -169,19 +169,7 @@ public class NetworkPlayerScript : NetworkBehaviour
         }
     }
 
-    // Raycast forward, and if a player hasn't entered the "Show" animation, cause them to do so now.
-    void RaycastForward()
-    {
-        RaycastHit hit;
-        //Transform raycastSource = GetComponentInChildren<AudioListener>().transform;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 10f))
-        {
-            //if(this.gameObject.tag == "Player")
-                hit.transform.gameObject.SendMessage("OnRaycastHit", hit.point, SendMessageOptions.DontRequireReceiver);
-        }
-    }
-
-    void OnRaycastHit()
+    void OnRaycastHitBot()
     {
         m_raycastReceived = true;
         m_raycastLostTimer = 0.0f;
@@ -205,26 +193,24 @@ public class NetworkPlayerScript : NetworkBehaviour
             HandleFaceChange();
         }
 
-        //if(isLocalPlayer)
-        { 
-            RaycastForward();
-            if(m_raycastReceived)
+         
+        if(m_raycastReceived)
+        {
+            anim.animator.SetBool("MaskRemoved", true);
+            m_raycastLostTimer += Time.deltaTime;
+            if(m_raycastLostTimer > 3.25f)
             {
-                anim.animator.SetBool("MaskRemoved", true);
-                m_raycastLostTimer += Time.deltaTime;
-                if(m_raycastLostTimer > 1.0f)
-                {
-                    m_raycastReceived = false;
-                }
-            }
-            else
-            {
-                if(m_raycastLostTimer >= 1.0f)
-                {
-                    anim.animator.SetBool("MaskRemoved", false);
-                }
+                m_raycastReceived = false;
             }
         }
+        else
+        {
+            if(m_raycastLostTimer >= 3.25)
+            {
+                anim.animator.SetBool("MaskRemoved", false);
+            }
+        }
+        
     }
 
 }
