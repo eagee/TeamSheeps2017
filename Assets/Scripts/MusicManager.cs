@@ -12,7 +12,7 @@ public class MusicManager : MonoBehaviour
     public AudioSource BoredomTrack;
     public string State;
 
-    public float smoothTrans = 1.0f;
+    private float smoothTrans = 5.0f;
     // Use this for initialization
     void Start()
     {

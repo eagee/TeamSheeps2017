@@ -1404,6 +1404,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: c72eeb2ca73e37f4380e61f1961ef05e, type: 2}
   FaceMeshRenderer: {fileID: 23475359579221690}
   smoothSpeed: 10
+  faceMaterialIndex: 0
 --- !u!114 &114434553269736052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1420,8 +1421,7 @@ MonoBehaviour:
   SadTrack: {fileID: 82662148106929482}
   AngryTrack: {fileID: 82148667299969598}
   BoredomTrack: {fileID: 82260893463653252}
-  State: 
-  smoothTrans: 1
+  State: normal
 --- !u!114 &114457401636236678
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_SyncSpin: 0
   m_MovementTheshold: 0.001
   m_SnapThreshold: 5
-  m_InterpolateRotation: 1
+  m_InterpolateRotation: 0.1
   m_InterpolateMovement: 1
 --- !u!114 &114570670295185316
 MonoBehaviour:
