@@ -12,7 +12,15 @@ public class MusicManager : MonoBehaviour
     public AudioSource BoredomTrack;
     public string State;
 
-    public float smoothTrans = 1.0f;
+    private float smoothTrans = 2.5f;
+    private float abnormalStateTimer = 0.0f;
+    private const float MAX_ABNORMAL_STATE_TIME = 4.0f;
+
+    public void ChangeState(string newState)
+    {
+        State = newState;
+        abnormalStateTimer = 0f;
+    }
     // Use this for initialization
     void Start()
     {
@@ -22,11 +30,11 @@ public class MusicManager : MonoBehaviour
         AngryTrack.volume = 0f;
         BoredomTrack.volume = 0f;
 
-    MainTrack.Play();
-    WinningTrack.Play();
-    SadTrack.Play();
-    AngryTrack.Play();
-    BoredomTrack.Play();
+        MainTrack.Play();
+        WinningTrack.Play();
+        SadTrack.Play();
+        AngryTrack.Play();
+        BoredomTrack.Play();
 }
 
     // Update is called once per frame
@@ -73,6 +81,16 @@ public class MusicManager : MonoBehaviour
             BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             AngryTrack.volume = Mathf.Lerp(AngryTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             WinningTrack.volume = Mathf.Lerp(WinningTrack.volume, 1.0f, smoothTrans * Time.deltaTime);
+        }
+
+        if(State != "normal")
+        {
+            abnormalStateTimer += Time.deltaTime;
+            if(abnormalStateTimer > MAX_ABNORMAL_STATE_TIME)
+            {
+                abnormalStateTimer = 0.0f;
+                State = "normal";
+            }
         }
 
     }

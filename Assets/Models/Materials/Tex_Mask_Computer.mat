@@ -8,8 +8,13 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Tex_Mask_Computer
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+<<<<<<< 637820b25543fc069e92b8877dcd574a6b786778
   m_ShaderKeywords: 
   m_LightmapFlags: 5
+=======
+  m_ShaderKeywords: _EMISSION
+  m_LightmapFlags: 1
+>>>>>>> dee0e4c109e91ddc201a4f42c83ea49071da04f4
   m_CustomRenderQueue: -1
   stringTagMap: {}
   m_SavedProperties:
@@ -48,7 +53,11 @@ Material:
     - first:
         name: _MainTex
       second:
+<<<<<<< 637820b25543fc069e92b8877dcd574a6b786778
         m_Texture: {fileID: 0}
+=======
+        m_Texture: {fileID: 2800000, guid: 5d9f271b494b2ea469159bdd3145c58d, type: 3}
+>>>>>>> dee0e4c109e91ddc201a4f42c83ea49071da04f4
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:

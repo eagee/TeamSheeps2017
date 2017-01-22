@@ -24,6 +24,10 @@ public class NetworkPlayerScript : NetworkBehaviour
     [SyncVar]
     private Quaternion mostRecentRotation;
 
+    [SyncVar]
+    public short faceMaterialIndex = 0;
+    private short currentFaceMaterialIndex = 0;
+
     private Vector3 prevPos;
     private Quaternion prevRotation;
 
@@ -44,23 +48,27 @@ public class NetworkPlayerScript : NetworkBehaviour
     {
         if (this.tag == "Player")
         {
-            FaceMeshRenderer.sharedMaterial = FaceMaterials[SMILE_FACE];
+            faceMaterialIndex = SMILE_FACE;
             return;
         }
 
-        int faceNumber = (int)Random.Range(0, 2);
+        int faceNumber = (int)Random.Range(0, 4);
 
-        if (faceNumber == 0)
+        if (faceNumber == ANGRY_FACE)
         {
-            FaceMeshRenderer.sharedMaterial = FaceMaterials[ANGRY_FACE];
+            faceMaterialIndex = ANGRY_FACE;
         }
-        else if (faceNumber == 1)
+        else if (faceNumber == NEUTRAL_FACE)
         {
-            FaceMeshRenderer.sharedMaterial = FaceMaterials[NEUTRAL_FACE];
+            faceMaterialIndex = NEUTRAL_FACE;
         }
-        else 
+        else if (faceNumber == SAD_FACE)
         {
-            FaceMeshRenderer.sharedMaterial = FaceMaterials[SAD_FACE];
+            faceMaterialIndex = SAD_FACE;
+        }
+        else
+        {
+            faceMaterialIndex = SMILE_FACE;
         }
     }
 
@@ -191,6 +199,12 @@ public class NetworkPlayerScript : NetworkBehaviour
         {
             m_faceNeedsChange = false;
             HandleFaceChange();
+        }
+
+        if(currentFaceMaterialIndex != faceMaterialIndex)
+        {
+            currentFaceMaterialIndex = faceMaterialIndex;
+            FaceMeshRenderer.sharedMaterial = FaceMaterials[faceMaterialIndex];
         }
 
          
