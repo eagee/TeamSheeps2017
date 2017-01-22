@@ -38,7 +38,7 @@ public class NetworkPlayerScript : NetworkBehaviour
         GetComponentInChildren<OVRDevice>().enabled = false;
         GetComponentInChildren<OVRDistortionCamera>().enabled = false;
         GetComponentInChildren<AudioListener>().enabled = false;
-
+        GetComponentInChildren<MusicManager>().enabled = false;
         // Disable all child camera support components
         Camera[] childCameras = GetComponentsInChildren<Camera>();
         foreach (var cam in childCameras)
@@ -59,6 +59,12 @@ public class NetworkPlayerScript : NetworkBehaviour
         foreach (var flare in flareLayers)
         {
             flare.enabled = false;
+        }
+
+        AudioSource [] Sounds = GetComponentsInChildren<AudioSource>();
+        foreach (var sound in Sounds)
+        {
+           sound.enabled = false;
         }
     }
 

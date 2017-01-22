@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioSwitcher : MonoBehaviour
+public class MusicManager : MonoBehaviour
 {
 
     public AudioSource MainTrack;
