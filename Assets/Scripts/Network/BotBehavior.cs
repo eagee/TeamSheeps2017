@@ -22,8 +22,8 @@ public class BotBehavior : NetworkBehaviour {
     [ServerCallback]    
     void Update()
     {
-        players = FindObjectsOfType<NetworkPlayerScript>();
-        if(players.Length >= 2)
+        
+        if (GetComponent<NetworkPlayerScript>().GetBotsAndPlayers().Count >= 2)
         {
             if (isMoving == false)
             {
@@ -48,28 +48,29 @@ public class BotBehavior : NetworkBehaviour {
     void StartMoving()
     {
 
-        float distance = 0.0f;
-        Vector3 targetPosition = new Vector3(0f, 0f, this.transform.position.z);
-        foreach(var player in players)
+        // Find furthest away
+        // float distance = 0.0f;
+        // Vector3 targetPosition = new Vector3(0f, 0f, this.transform.position.z);
+        // foreach(var player in players)
+        // {
+        //     float lastDistance = distance;
+        //     distance = Vector3.Distance(player.transform.position, this.transform.position);
+        //     if (distance > lastDistance)
+        //     {
+        //         targetPosition = player.transform.position;
+        //     }
+        // }
+        // agent.SetDestination(targetPosition);
+
+        // Find Random
+        int count = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers().Count;
+        Transform newTarget = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers()[(int)Random.Range(0, count - 1)].gameObject.transform;
+        while (newTarget == transform || newTarget == agent.transform)
         {
-            float lastDistance = distance;
-            distance = Vector3.Distance(player.transform.position, this.transform.position);
-            if (distance > lastDistance)
-            {
-                targetPosition = player.transform.position;
-            }
+            newTarget = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers()[(int)Random.Range(0, count-1)].gameObject.transform;
         }
-        agent.SetDestination(targetPosition);
 
-        //Transform newTarget = players[(int)Random.Range(0, players.Length)].gameObject.transform;
-        //while (newTarget == transform && newTarget != agent.transform)
-        //{
-        //    
-        //    newTarget = players[(int)Random.Range(0, players.Length)].gameObject.transform;
-        //}
-        //agent.SetDestination(newTarget.position);
-        //print("Setting desintation to: " + newTarget.gameObject.name);
-
+        agent.SetDestination(newTarget.position);
         isMoving = true;
     }
 }

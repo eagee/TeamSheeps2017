@@ -78,9 +78,16 @@ public class NetworkPlayerScript : NetworkBehaviour
         }
     }
 
+    public List<NetworkPlayerScript> GetBotsAndPlayers()
+    {
+        return BotsAndPlayers;
+    }
+
     void Start()
     {
         anim = GetComponent<NetworkAnimator>();
+
+        BotsAndPlayers.Add(this);
 
         // If we're setting up the local player, we want the camera to follow him/her so we set the "Player" tag
         // (all other players are tagged "OtherPlayer" by default, and enable the PlayerController object so that
@@ -133,10 +140,10 @@ public class NetworkPlayerScript : NetworkBehaviour
     void Update()
     {
         // We lerp on update so that time.deltaTime isn't being executed on a fixed basis (since this will be different between different machines)
-        if (!isLocalPlayer)
-        {
-           // LerpPositionAndRotation();
-        }
+        //if (!isLocalPlayer)
+        //{
+        //   // LerpPositionAndRotation();
+        //}
         
         // Update our animations based on the player movement
         if (prevPos != transform.position)
