@@ -10,6 +10,8 @@ public class NetworkPlayerScript : NetworkBehaviour
 {
     public static List<NetworkPlayerScript> BotsAndPlayers = new List<NetworkPlayerScript>();
 
+    public MeshRenderer FaceMeshRenderer;
+
     [Header("Options")]
     public float smoothSpeed = 10f;
 
@@ -26,6 +28,18 @@ public class NetworkPlayerScript : NetworkBehaviour
 
     private float currentTransmitTime = 0.0f;
     private const float TRANSMIT_INTERVAL = 0.05f;
+
+    // Changes the face of the player object to a smile if it's a player, and a random face otherwise.
+    public void HandleFaceChange()
+    {
+
+    }
+
+    // Changes the mask of the player object to a random mask prefab
+    public void HandleMaskChange()
+    {
+
+    }
 
     private void DisableLocalPlayerComponents()
     {
