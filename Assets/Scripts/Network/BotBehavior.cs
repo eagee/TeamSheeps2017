@@ -10,20 +10,21 @@ public class BotBehavior : NetworkBehaviour {
     public Transform target;
 
     bool isMoving;
-    private NetworkPlayerScript[] players;
+    private List<NetworkPlayerScript> players;
 
     // Use this for initialization
     void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = true;
+        players = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers();
     }
 
     [ServerCallback]    
     void Update()
     {
         
-        if (GetComponent<NetworkPlayerScript>().GetBotsAndPlayers().Count >= 2)
+        if (players.Count >= 2)
         {
             if (isMoving == false)
             {
@@ -63,11 +64,11 @@ public class BotBehavior : NetworkBehaviour {
         // agent.SetDestination(targetPosition);
 
         // Find Random
-        int count = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers().Count;
-        Transform newTarget = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers()[(int)Random.Range(0, count - 1)].gameObject.transform;
-        while (newTarget == transform || newTarget == agent.transform)
+        int count = players.Count;
+        Transform newTarget = players[(int)Random.Range(0, count - 1)].gameObject.transform;
+        while (newTarget.position == transform.position) // || newTarget.position == agent.transform.position
         {
-            newTarget = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers()[(int)Random.Range(0, count-1)].gameObject.transform;
+            newTarget = players[(int)Random.Range(0, count-1)].gameObject.transform;
         }
 
         agent.SetDestination(newTarget.position);

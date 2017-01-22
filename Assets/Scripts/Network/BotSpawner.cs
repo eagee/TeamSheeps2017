@@ -7,17 +7,22 @@ public class BotSpawner : NetworkBehaviour
 {
     [SerializeField]
     GameObject OVRNetworkPlayerPrefab;
+    public int numberOfBotsToSpawn = 15;
 
     [ServerCallback]
     void Start()
     {
-        Transform startPos = NetworkManager.singleton.GetStartPosition();
-        GameObject obj = Instantiate(OVRNetworkPlayerPrefab,startPos.position, startPos.rotation);
-        obj.GetComponent<NetworkIdentity>().localPlayerAuthority = false;
-        obj.AddComponent<BotBehavior>();
-        //obj.GetComponent<BotBehavior>().SetAwakeVector(this.gameObject.transform.position);
-        obj.name = obj.name + this.gameObject.name;
-        NetworkServer.Spawn(obj);
+        for(int i = 0; i < numberOfBotsToSpawn; i++)
+        { 
+            NetworkStartPosition[] startPositions = FindObjectsOfType<NetworkStartPosition>();
+            Transform startPos = startPositions[Random.Range(0, startPositions.Length - 1)].transform;
+            GameObject obj = Instantiate(OVRNetworkPlayerPrefab,startPos.position, startPos.rotation);
+            obj.GetComponent<NetworkIdentity>().localPlayerAuthority = false;
+            obj.AddComponent<BotBehavior>();
+            obj.tag = "Bot";
+            obj.name = obj.name + this.gameObject.name;
+            NetworkServer.Spawn(obj);
+        }
     }
 
     void OnDrawGizmos()
