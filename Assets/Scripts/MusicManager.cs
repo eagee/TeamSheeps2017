@@ -22,11 +22,11 @@ public class MusicManager : MonoBehaviour
         AngryTrack.volume = 0f;
         BoredomTrack.volume = 0f;
 
-    MainTrack.Play();
-    WinningTrack.Play();
-    SadTrack.Play();
-    AngryTrack.Play();
-    BoredomTrack.Play();
+        MainTrack.Play();
+        WinningTrack.Play();
+        SadTrack.Play();
+        AngryTrack.Play();
+        BoredomTrack.Play();
 }
 
     // Update is called once per frame
