@@ -21,7 +21,7 @@ public class BotSpawner : NetworkBehaviour
             obj.AddComponent<BotBehavior>();
 
             obj.tag = "Bot";
-            obj.name = obj.name + this.gameObject.name;
+            obj.name = "Bot" + i.ToString();
             NetworkServer.Spawn(obj);
         }
     }
