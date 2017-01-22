@@ -19,6 +19,7 @@ public class BotSpawner : NetworkBehaviour
             GameObject obj = Instantiate(OVRNetworkPlayerPrefab,startPos.position, startPos.rotation);
             obj.GetComponent<NetworkIdentity>().localPlayerAuthority = false;
             obj.AddComponent<BotBehavior>();
+
             obj.tag = "Bot";
             obj.name = obj.name + this.gameObject.name;
             NetworkServer.Spawn(obj);

@@ -22,32 +22,39 @@ public class MusicManager : MonoBehaviour
         AngryTrack.volume = 0f;
         BoredomTrack.volume = 0f;
 
-
-
-
-    }
+    MainTrack.Play();
+    WinningTrack.Play();
+    SadTrack.Play();
+    AngryTrack.Play();
+    BoredomTrack.Play();
+}
 
     // Update is called once per frame
     void Update()
     {
-
-
+        if(State.ToLower() == "normal")
+        {
+            MainTrack.volume = Mathf.Lerp(MainTrack.volume, 1.0f, smoothTrans * Time.deltaTime);
+            AngryTrack.volume = Mathf.Lerp(AngryTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
+            SadTrack.volume = Mathf.Lerp(SadTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
+            WinningTrack.volume = Mathf.Lerp(WinningTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
+            BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
+        }
         if (State.ToLower() == "boredom")
         {
             MainTrack.volume = Mathf.Lerp(MainTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             AngryTrack.volume = Mathf.Lerp(AngryTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
-            SadTrack.volume = Mathf.Lerp(SadTrack.volume, 0.0f, 10f);
+            SadTrack.volume = Mathf.Lerp(SadTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             WinningTrack.volume = Mathf.Lerp(WinningTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
-            BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 1.0f, 10f);
+            BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 1.0f, smoothTrans * Time.deltaTime);
         }
-
         if (State.ToLower() == "sad")
         {
             MainTrack.volume = Mathf.Lerp(MainTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             AngryTrack.volume = Mathf.Lerp(AngryTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             WinningTrack.volume = Mathf.Lerp(WinningTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
-            SadTrack.volume = Mathf.Lerp(SadTrack.volume, 1.0f, 10f);
+            SadTrack.volume = Mathf.Lerp(SadTrack.volume, 1.0f, smoothTrans * Time.deltaTime);
         }
 
         if (State.ToLower() == "angry")
@@ -65,7 +72,6 @@ public class MusicManager : MonoBehaviour
             SadTrack.volume = Mathf.Lerp(SadTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             BoredomTrack.volume = Mathf.Lerp(BoredomTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
             AngryTrack.volume = Mathf.Lerp(AngryTrack.volume, 0.0f, smoothTrans * Time.deltaTime);
-
             WinningTrack.volume = Mathf.Lerp(WinningTrack.volume, 1.0f, smoothTrans * Time.deltaTime);
         }
 
