@@ -10,6 +10,9 @@ public class BotBehavior : NetworkBehaviour {
     
     bool isMoving;
     private List<NetworkPlayerScript> players;
+    private List<SpawnPointGizmo> spawnPoints;
+
+    private int lastDiscoveryMethod = 0;
 
     private float nearTargetTime = 0.0f;
 
@@ -19,6 +22,7 @@ public class BotBehavior : NetworkBehaviour {
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = true;
         players = GetComponent<NetworkPlayerScript>().GetBotsAndPlayers();
+        spawnPoints = FindObjectOfType<SpawnPointGizmo>().GetSpawnPointList();
     }
 
     [ServerCallback]    
@@ -68,30 +72,46 @@ public class BotBehavior : NetworkBehaviour {
     [Server]
     void StartMoving()
     {
+        lastDiscoveryMethod++;
+        if (lastDiscoveryMethod > 1) lastDiscoveryMethod = 0;
 
-        // Find furthest away
-        // float distance = 0.0f;
-        // Vector3 targetPosition = new Vector3(0f, 0f, this.transform.position.z);
-        // foreach(var player in players)
-        // {
-        //     float lastDistance = distance;
-        //     distance = Vector3.Distance(player.transform.position, this.transform.position);
-        //     if (distance > lastDistance)
-        //     {
-        //         targetPosition = player.transform.position;
-        //     }
-        // }
-        // agent.SetDestination(targetPosition);
+        // int randomDiscoveryMethod = (int)Random.Range(0f, 3f);
+        if (lastDiscoveryMethod == 0)
+        {
+            // Pick a random player to find
+            float count = (float)players.Count;
+            Transform newTarget = players[(int)Random.Range(0f, count)].gameObject.transform;
+            while (newTarget.position == transform.position) // || newTarget.position == agent.transform.position
+            {
+                newTarget = players[(int)Random.Range(0f, count)].gameObject.transform;
+            }
+            agent.SetDestination(newTarget.position);
+        }
+        if (lastDiscoveryMethod == 1)
+        {
+            // Pick a random spawn point to return to
+            float count = (float)spawnPoints.Count;
+            Transform newTarget = spawnPoints[(int)Random.Range(0f, count)].gameObject.transform;
+            agent.SetDestination(newTarget.position);
+        }
+        //else
+        //{
+        //    // Find furthest away player
+        //    float distance = 0.0f;
+        //    Vector3 targetPosition = new Vector3(0f, 0f, this.transform.position.z);
+        //    foreach (var player in players)
+        //    {
+        //        float lastDistance = distance;
+        //        distance = Vector3.Distance(player.transform.position, this.transform.position);
+        //        if (distance > lastDistance)
+        //        {
+        //            targetPosition = player.transform.position;
+        //        }
+        //    }
+        //    agent.SetDestination(targetPosition);
+        //}
 
         // Find Random
-        int count = players.Count;
-        Transform newTarget = players[(int)Random.Range(0, count - 1)].gameObject.transform;
-        while (newTarget.position == transform.position) // || newTarget.position == agent.transform.position
-        {
-            newTarget = players[(int)Random.Range(0, count-1)].gameObject.transform;
-        }
-        
-        agent.SetDestination(newTarget.position);
         isMoving = true;
     }
 }

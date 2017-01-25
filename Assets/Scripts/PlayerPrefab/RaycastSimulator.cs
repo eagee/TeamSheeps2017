@@ -18,16 +18,19 @@ public class RaycastSimulator : MonoBehaviour {
         {
             // TODO: The the type of face from the other object and modify our musical state accordingly...
             other.gameObject.SendMessage("OnRaycastHitBot", parentGameObject.transform.position, SendMessageOptions.DontRequireReceiver);
-            other.gameObject.GetComponent<NavMeshAgent>().SetDestination(parentGameObject.transform.position);
-            int faceType = other.gameObject.GetComponent<NetworkPlayerScript>().faceMaterialIndex;
-            if (faceType == 0)
-                parentGameObject.GetComponent<MusicManager>().ChangeState("winning");
-            else if (faceType == 1)                          
-                parentGameObject.GetComponent<MusicManager>().ChangeState("angry");
-            else if (faceType == 2)                          
-                parentGameObject.GetComponent<MusicManager>().ChangeState("boredom");
-            else if (faceType == 3)                          
-                parentGameObject.GetComponent<MusicManager>().ChangeState("sad");
+            if(parentGameObject.tag == "Player")
+            {
+                other.gameObject.GetComponent<NavMeshAgent>().SetDestination(parentGameObject.transform.position);
+                int faceType = other.gameObject.GetComponent<NetworkPlayerScript>().faceMaterialIndex;
+                if (faceType == 0)
+                    parentGameObject.GetComponent<MusicManager>().ChangeState("winning");
+                else if (faceType == 1)                          
+                    parentGameObject.GetComponent<MusicManager>().ChangeState("angry");
+                else if (faceType == 2)                          
+                    parentGameObject.GetComponent<MusicManager>().ChangeState("boredom");
+                else if (faceType == 3)                          
+                    parentGameObject.GetComponent<MusicManager>().ChangeState("sad");
+            }
         }
     }
 
