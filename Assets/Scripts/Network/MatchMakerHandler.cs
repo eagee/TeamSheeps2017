@@ -14,7 +14,7 @@ public class MatchMakerHandler : MonoBehaviour {
 
     public bool edtUseMatchMaker = true;
     private bool m_useMatchMaker = true;
-    private float m_ConnectionTimer = 5.0f;
+    private float m_ConnectionTimer = 0.0f;
     private const float CONNECTION_WAIT_TIME = 1.0f;
 
     private NetworkManager m_networkManager;
@@ -96,6 +96,7 @@ public class MatchMakerHandler : MonoBehaviour {
             }
             else
             {
+                Debug.Log("Match Count: " + m_networkManager.matches.Count.ToString());
                 // If this is a client connection and we've got a populated list of matches, then go ahead and join the first one
                 // (it's the only one we should have available for the show)
                 if (m_networkManager.matches.Count > 0)
@@ -113,5 +114,9 @@ public class MatchMakerHandler : MonoBehaviour {
                 }
             }
         }// end else if (m_networkManager.matchInfo == null)
+        else
+        {
+            Debug.Log("Matchinfo is populated!");
+        }
     }
 }
